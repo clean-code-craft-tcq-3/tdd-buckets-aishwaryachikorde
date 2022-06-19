@@ -7,7 +7,9 @@ namespace CurrentChargeRanges
   {
     public static List<int> SortInputArray(int[] inputNumbers)
     {
-      throw new NotImplementedException();
+      List<int> sortedArray = new List<int>();
+
+      return sortedArray;
     }
   }
 }
