@@ -8,6 +8,12 @@ namespace CurrentChargeRanges
     public static List<int> SortInputArray(int[] inputNumbers)
     {
       List<int> sortedArray = new List<int>();
+      if (inputNumbers == null)
+      {
+        throw new NullReferenceException("Values cannot be null");
+      }
+      sortedArray.AddRange(inputNumbers);
+      sortedArray.Sort();
 
       return sortedArray;
     }
