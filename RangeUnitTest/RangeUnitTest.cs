@@ -40,3 +40,4 @@ namespace RangeUnitTest
       CollectionAssert.AreNotEqual(unSortedRangeList, new List<Tuple<string, int>> { new("-1 - 2", 4), new("5 - 7", 3), new("79 - 80", 2) });
   }
  }
+}
