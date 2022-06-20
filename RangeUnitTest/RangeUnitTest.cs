@@ -30,5 +30,13 @@ namespace RangeUnitTest
     {
        List<Tuple<string, int>> smallestRangeList = CurrentChargeRange.GetRangeReadingList(new List<int> { 1, 2 });
        CollectionAssert.AreEqual(smallestRangeList, new List<Tuple<string, int>> { new("1-2", 2) });
+      
+      //Test with multiple group of consecutive numbers
+      List<Tuple<string, int>> multipleRangeList = CurrentChargeRange.GetRangeReadingList(new List<int> { -1, 0, 1, 2, 5, 6, 7, 79, 80 });
+      CollectionAssert.AreEqual(multipleRangeList, new List<Tuple<string, int>> { new("-1 - 2", 4), new("5 - 7", 3), new("79 - 80", 2) });
+
+      //Negative Scenario with unsorted array
+      List<Tuple<string, int>> unSortedRangeList = CurrentChargeRange.GetRangeReadingList(new List<int> { 1, 0, -1, 2, 5, 6, 7, 79, 80 });
+      CollectionAssert.AreNotEqual(unSortedRangeList, new List<Tuple<string, int>> { new("-1 - 2", 4), new("5 - 7", 3), new("79 - 80", 2) });
   }
  }
