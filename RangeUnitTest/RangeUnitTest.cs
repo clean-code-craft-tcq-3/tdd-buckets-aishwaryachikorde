@@ -24,5 +24,11 @@ namespace RangeUnitTest
       //Negative Scenario
       Assert.ThrowsException<NullReferenceException>(() => CurrentChargeRange.SortInputArray(null));
     }
+    
+    [TestMethod]
+    public void TestGetRangeReading()
+    {
+      List<Tuple<string, int>> rangeReadingList = CurrentChargeRange.GetRangeReadingList(List<int> sortedInputList);
+    }
   }
-}
+ }
