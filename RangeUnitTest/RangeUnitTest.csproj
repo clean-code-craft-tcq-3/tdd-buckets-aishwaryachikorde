@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChargeRangeReader\CurrentChargeRange.csproj" />
     <ProjectReference Include="..\CurrentChargeRange\CurrentChargeRange.csproj" />
   </ItemGroup>
 
