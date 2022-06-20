@@ -17,5 +17,12 @@ namespace CurrentChargeRanges
 
       return sortedArray;
     }
+    
+    public static List<Tuple<string, int>> GetRangeReadingList(List<int> sortedList)
+    {
+      List<Tuple<string, int>> rangeReaderList = new List<Tuple<string, int>>();
+
+      return rangeReaderList;
+    }
   }
 }
