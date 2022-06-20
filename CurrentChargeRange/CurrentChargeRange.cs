@@ -18,10 +18,25 @@ namespace CurrentChargeRanges
       return sortedArray;
     }
     
-    public static List<Tuple<string, int>> GetRangeReadingList(List<int> sortedList)
+    public static List<Tuple<string, int>> GetRangeReadingList(List<int> sortedInputList)
     {
+      int flag = 1;
       List<Tuple<string, int>> rangeReaderList = new List<Tuple<string, int>>();
 
+      for (int index = 1; index <= sortedInputList.Count; index++)
+      {
+        if (index == sortedInputList.Count || sortedInputList[index] - sortedInputList[index - 1] != 1 && sortedInputList[index] - sortedInputList[index - 1] != 0)
+        {
+          rangeReaderList.Add(new Tuple<string, int>(sortedInputList[index - flag] + "-" + sortedInputList[index - 1], flag));
+
+          flag = 1;
+        }
+        else
+        {
+          flag++;
+        }
+      }
+      
       return rangeReaderList;
     }
   }
