@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CurrentChargeRanges;
 using System;
+using CurrentChargeRanges;
 
 namespace RangeUnitTest
 {
