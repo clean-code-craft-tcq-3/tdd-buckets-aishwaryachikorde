@@ -18,16 +18,16 @@ namespace CurrentChargeRanges
       return sortedArray;
     }
     
-    public static List<Tuple<string, int>> GetRangeReadingList(List<int> sortedInputList)
+   public static List<Tuple<string, int>> GetRangeReadingList(List<int> sortedInputList)
     {
       int flag = 1;
       List<Tuple<string, int>> rangeReaderList = new List<Tuple<string, int>>();
 
       for (int index = 1; index <= sortedInputList.Count; index++)
       {
-        if (index == sortedInputList.Count || sortedInputList[index] - sortedInputList[index - 1] != 1 && sortedInputList[index] - sortedInputList[index - 1] != 0)
+        if (index == sortedInputList.Count || IsConsecutive(sortedInputList[index - 1], sortedInputList[index]) == false)
         {
-          rangeReaderList.Add(new Tuple<string, int>(sortedInputList[index - flag] + "-" + sortedInputList[index - 1], flag));
+          rangeReaderList.Add(new Tuple<string, int>(sortedInputList[index - flag] + " - " + sortedInputList[index - 1], flag));
 
           flag = 1;
         }
@@ -36,8 +36,14 @@ namespace CurrentChargeRanges
           flag++;
         }
       }
-      
+
       return rangeReaderList;
+    }
+
+    private static bool IsConsecutive(int currentValue, int nextValue)
+    {
+      int difference = nextValue - currentValue;
+      return difference == 0 || difference == 1;
     }
   }
 }
