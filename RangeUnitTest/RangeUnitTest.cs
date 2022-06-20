@@ -11,11 +11,13 @@ namespace RangeUnitTest
     [TestMethod]
     public void TestSortInputArray()
     {
-      List<int> expectedList = new List<int>() { 1, 2, 3, 4, 5, 6 };
+       //Positive scenario
       int[] actualArray = { 1, 3, 4, 2, 6, 5 };
-      List<int> sortedInputList = CurrentChargeRange.SortInputArray(new[] {1, 3, 4, 2, 6, 5});
+      List<int> sortedInputList = CurrentChargeRange.SortInputArray(actualArray);
+      CollectionAssert.AreEquivalent(sortedInputList, actualArray);
 
-      CollectionAssert.AreEqual(expectedList, actualArray);
+      //Negative Scenario
+      Assert.ThrowsException<NullReferenceException>(() => CurrentChargeRange.SortInputArray(null));
     }
   }
 }
