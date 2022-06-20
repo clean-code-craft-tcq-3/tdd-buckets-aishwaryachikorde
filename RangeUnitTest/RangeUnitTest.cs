@@ -28,7 +28,7 @@ namespace RangeUnitTest
     [TestMethod]
     public void TestGetRangeReading()
     {
-      List<Tuple<string, int>> rangeReadingList = CurrentChargeRange.GetRangeReadingList(List<int> sortedInputList);
-    }
+       List<Tuple<string, int>> smallestRangeList = CurrentChargeRange.GetRangeReadingList(new List<int> { 1, 2 });
+       CollectionAssert.AreEqual(smallestRangeList, new List<Tuple<string, int>> { new("1-2", 2) });
   }
  }
