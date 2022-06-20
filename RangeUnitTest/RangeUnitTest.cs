@@ -12,9 +12,14 @@ namespace RangeUnitTest
     public void TestSortInputArray()
     {
        //Positive scenario
-      int[] actualArray = { 1, 3, 4, 2, 6, 5 };
-      List<int> sortedInputList = CurrentChargeRange.SortInputArray(actualArray);
-      CollectionAssert.AreEquivalent(sortedInputList, actualArray);
+      List<int> sortedInputList = CurrentChargeRange.SortInputArray(new[] { 1, 3, 4, 2, 6, 5 });
+      CollectionAssert.AreEqual(sortedInputList, new[]{ 1, 2,3,4,5,6 });
+
+      List<int> sortSmallestList = CurrentChargeRange.SortInputArray(new[] { 4, 5 });
+      CollectionAssert.AreEqual(sortSmallestList, new[] { 4, 5});
+
+      List<int> sortNegativeList = CurrentChargeRange.SortInputArray(new[] { -1, -2, 0, 1, 5, 6 });
+      CollectionAssert.AreEqual(sortNegativeList, new[] {-2,-1, 0, 1, 5, 6 });
 
       //Negative Scenario
       Assert.ThrowsException<NullReferenceException>(() => CurrentChargeRange.SortInputArray(null));
