@@ -1,15 +1,38 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CurrentChargeRanges
 {
   public class CurrentChargeRange
   {
+    public static float maximumTemparatureSensorReading = 4094;
+
+    static Dictionary<int, SensorParameters> maximumTemperatures = new Dictionary<int, SensorParameters>
+    {
+      { 12, new SensorParameters {Ampere = 10f, AnalogReadings = 4094, MinValue = 0} },
+      { 10, new SensorParameters {Ampere = 15f, AnalogReadings = 1022, MinValue = 511} }
+    };
+
+    public static int ConvertSensorReadingToAmps(int inputSensorReading, int bitValue)
+    {
+      if (inputSensorReading > maximumTemparatureSensorReading)
+        throw new Exception("Input Sensor Reading exceeds the maximum value");
+
+      if (inputSensorReading < maximumTemperatures[bitValue].MinValue)
+        inputSensorReading = maximumTemperatures[bitValue].AnalogReadings - inputSensorReading;
+
+      int amps = (int)Math.Abs(Math.Ceiling(maximumTemperatures[bitValue].Ampere * inputSensorReading / maximumTemperatures[bitValue].AnalogReadings));
+
+      return amps;
+    }
+
+    [ExcludeFromCodeCoverage]
     public static void Main(string[] args)
     {
-      List<int> sortedInputNumbers = CurrentChargeRange.SortInputArray(new[] { 3, 3, 5, 4, 10, 11, 12 });
-      List<Tuple<string, int>> rangeReaderList = CurrentChargeRange.GetRangeReadingList(sortedInputNumbers);
-      CurrentChargeRange.DisplayOnConsole(rangeReaderList);
+      List<int> sortedInputNumbers = SortInputArray(new[] { 3, 3, 5, 4, 10, 11, 12 });
+      List<Tuple<string, int>> rangeReaderList = GetRangeReadingList(sortedInputNumbers);
+      DisplayOnConsole(rangeReaderList);
     }
 
 
@@ -29,20 +52,20 @@ namespace CurrentChargeRanges
 
     public static List<Tuple<string, int>> GetRangeReadingList(List<int> sortedInputList)
     {
-      int flag = 1;
+      int rangeTracker = 1;
       List<Tuple<string, int>> rangeReaderList = new List<Tuple<string, int>>();
 
       for (int index = 1; index <= sortedInputList.Count; index++)
       {
         if (index == sortedInputList.Count || IsConsecutive(sortedInputList[index - 1], sortedInputList[index]) == false)
         {
-          rangeReaderList.Add(new Tuple<string, int>(sortedInputList[index - flag] + " - " + sortedInputList[index - 1], flag));
+          rangeReaderList.Add(new Tuple<string, int>(sortedInputList[index - rangeTracker] + " - " + sortedInputList[index - 1], rangeTracker));
 
-          flag = 1;
+          rangeTracker = 1;
         }
         else
         {
-          flag++;
+          rangeTracker++;
         }
       }
 
@@ -55,7 +78,7 @@ namespace CurrentChargeRanges
       return difference == 0 || difference == 1;
     }
 
-    public static void DisplayOnConsole(List<Tuple<string, int>> tupleList)
+    private static void DisplayOnConsole(List<Tuple<string, int>> tupleList)
     {
       Console.WriteLine("Range, \tReading");
       foreach (Tuple<string, int> tupleReadings in tupleList)
